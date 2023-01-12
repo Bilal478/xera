@@ -1,0 +1,12 @@
+.custom_h_svg{
+    height: 3.25rem;
+}
+.custom_w_svg{
+    width: 12.5rem;
+}
+.image_selector_padding{
+    padding: 23px !important;
+}
+.image_selector_inside_padding{
+    padding: 8px;
+}

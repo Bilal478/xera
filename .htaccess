@@ -1,0 +1,10 @@
+# .htaccess
+Options +FollowSymLinks
+RewriteEngine on
+RewriteRule  ^([A-Za-z0-9-_]+)/?$  index.php?firstvar=$1 [NC]
+RewriteRule  ^([A-Za-z0-9-_]+)/([A-Za-z0-9-_]+)/?$  index.php?firstvar=$1&secondvar=$2    [NC,L]
+RewriteRule  ^([A-Za-z0-9-_]+)/([A-Za-z0-9-_]+)/([A-Za-z0-9-]+)/?$  index.php?firstvar=$1&secondvar=$2&thirdvar=$3    [NC,L]
+RewriteRule  ^([A-Za-z0-9-_]+)/([A-Za-z0-9-_]+)/([A-Za-z0-9-]+)/([A-Za-z0-9-]+)/?$  index.php?firstvar=$1&secondvar=$2&thirdvar=$3&fourthvar=$4    [NC,L]
+RewriteRule  ^([A-Za-z0-9-_]+)/([A-Za-z0-9-_]+)/([A-Za-z0-9-]+)/([A-Za-z0-9-]+)/([A-Za-z0-9-]+)/?$  index.php?firstvar=$1&secondvar=$2&thirdvar=$3&fourthvar=$4&fifthvar=$5    [NC,L]
+RewriteRule  ^([A-Za-z0-9-_]+)/([A-Za-z0-9-_]+)/([A-Za-z0-9-]+)/([A-Za-z0-9-]+)/([A-Za-z0-9-]+)/([A-Za-z0-9-]+)/?$  index.php?firstvar=$1&secondvar=$2&thirdvar=$3&fourthvar=$4&fifthvar=$5&sixthvar=$6    [NC,L]
+RewriteRule  ^([A-Za-z0-9-_]+)/([A-Za-z0-9-]+)/([A-Za-z0-9-]+)/([A-Za-z0-9-]+)/([A-Za-z0-9-]+)/([A-Za-z0-9-]+)/([A-Za-z0-9-]+)/?$  index.php?firstvar=$1&secondvar=$2&thirdvar=$3&fourthvar=$4&fifthvar=$5&sixthvar=$6&seventhvar=$7    [NC,L]
