@@ -1,13 +1,13 @@
 <?php
 
-// if (isset($_POST['create_post'])) {
-//     var_dump($_POST['create_post']);
-//     if ($_POST['create_post'] == 'ok') {
-//         create_post();
-//         $_POST['create_post'] = 'no';
-//         var_dump($_POST['create_post']);
-//     }
-// }
+if (isset($_POST['create_post'])) {
+    var_dump($_POST['create_post']);
+    if ($_POST['create_post'] == 'ok') {
+        create_post();
+        $_POST['create_post'] = 'no';
+        var_dump($_POST['create_post']);
+    }
+}
 
 if (isset($_POST['key'])) {
     if ($_POST['key'] == 'store_likes') {
@@ -71,7 +71,6 @@ function get_posts()
     $con = connect_to_maindb();
     $query = mysqli_query($con, "SELECT * FROM xb_posts ORDER BY id DESC");
     while ($row = $query->fetch_assoc()) {
-
         $comments = mysqli_query($con, "SELECT * FROM xb_comments where post_id='".$row['id']."' ORDER BY id DESC");
         $likes = mysqli_query($con, "SELECT * FROM xb_likes where post_id='".$row['id']."'");
         $userQuery = mysqli_query($con, "SELECT first_name, last_name FROM xb_users where id='".$row['user_id']."'");
@@ -81,6 +80,7 @@ function get_posts()
         $row['user'] = $user;
         $posts[] = $row;
     }
+   
     return $posts;
 }
 
@@ -165,7 +165,6 @@ function store_comments()
                 </div>
             </div>
         </div>');
-
     }
     echo $extra.=$extra2;
    exit;

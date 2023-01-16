@@ -81,3 +81,9 @@
         </div>
     </form>
 </div>
+<!-- to prevent from submit form on refresh page -->
+<script>
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
+</script>
