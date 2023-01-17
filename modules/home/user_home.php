@@ -30,7 +30,10 @@ include_once("./layouts/sidebar/sidebar.php");
                 <?php include_once("./inc/posts/create_post.php"); ?>
                 <?php if ($posts_data) {
                     foreach ($posts_data as $index => $row) {
-                        $imageURL = 'upload/' . $row["picture"] ?>
+                        $image=explode(";",$row['picture']);
+                        // var_dump($image);
+                        // $imageURL = 'upload/' . $row["picture"] 
+                        ?>
                         <div class="card lg:mx-0 uk-animation-slide-bottom-small">
 
                             <!-- post header-->
@@ -85,12 +88,45 @@ include_once("./layouts/sidebar/sidebar.php");
                                 </div>
                             </div>
 
-                            <div uk-lightbox>
+
+
+                            
                                 <p class="pb-3 pl-5"><?php echo $row['title']; ?></p>
-                                <a href="<?php echo $imageURL; ?>">
-                                    <img src="<?php echo $imageURL; ?>" alt="" class="max-h-96 w-full object-cover">
-                                </a>
+                                
+                                
                             </div>
+                                <?php 
+                                foreach($image as $index=>$val){ ?>
+                                <div uk-lightbox>
+                                    <div class="grid grid-cols-2 gap-2 px-5">
+                                        <?php if($index==0){ ?>
+                                        <a href="<?php echo 'upload/'.$val; ?>" class="col-span-2">
+                                            <img src="<?php echo 'upload/'.$val; ?>" alt="" class="rounded-md w-full lg:h-76 object-cover">
+                                        </a>
+                                        <?php } ?>
+                                        <?php if($index==0){ ?>
+                                        <a href="<?php echo 'upload/'.$val; ?>">
+                                            <img src="<?php echo 'upload/'.$val; ?>" alt="" class="rounded-md w-full h-full">
+                                        </a>
+                                        <?php } ?>
+                                        <?php if($index==0){ ?>
+                                        <a href="<?php echo 'upload/'.$val; ?>" class="relative">
+                                            <img src="<?php echo 'upload/'.$val; ?>" alt="" class="rounded-md w-full h-full">
+                                            <div class="absolute bg-gray-900 bg-opacity-30 flex justify-center items-center text-white rounded-md inset-0 text-2xl"> + 15 more </div>
+                                        </a>
+                                        <?php } ?>
+                                    </div>
+                                </div>
+                                
+                                <!-- <a href="<?php echo 'upload/'.$val; ?>">
+
+                                    <img src="<?php echo 'upload/'.$val; ?>" alt="" class="max-h-96 w-full object-cover">
+                                    
+                                </a> -->
+                                <?php } ?>
+                                    
+                            </div>
+                        
 
 
                             <div class="p-4 space-y-3">
@@ -116,6 +152,30 @@ include_once("./layouts/sidebar/sidebar.php");
                                         </a>
                                        
                                     </div>
+                                    <?php 
+                                    
+                                    while ($row1 = $row['first_three_comments']->fetch_assoc()) {?>
+
+                                  
+                                    <div class="border-t py-4 space-y-4 dark:border-gray-600">
+                                        
+            <div class="flex">
+                <div class="w-10 h-10 rounded-full relative flex-shrink-0">
+                    <img src="assets/images/avatars/avatar-1.jpg" alt="" class="absolute h-full rounded-full w-full">
+                </div>
+                <div>
+                    <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 relative lg:ml-5 ml-2 lg:mr-12  dark:bg-gray-800 dark:text-gray-100">
+                    <p class="leading-6"><b><?php echo $row['user']['first_name'].' '.$row['user']['last_name'];?></b> </p>    
+                    <p class="leading-6"><?php echo $row1['comment'];?></p>
+                        <div class="absolute w-3 h-3 top-3 -left-1 bg-gray-100 transform rotate-45 dark:bg-gray-800"></div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <?php
+    }
+                                    ?>
                                    
                                 </span>
                                 <!-- <a href="#" class="hover:text-blue-600 hover:underline"> Veiw 8 more Comments </a> -->

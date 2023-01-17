@@ -38,6 +38,7 @@ function create_post()
     $statusMsg = $errorMsg = $insertValuesSQL = $errorUpload = $errorUploadType = '';
     $fileNames = array_filter($_FILES['files']['name']);
     if (!empty($fileNames)) {
+        $file_names=array();
         foreach ($_FILES['files']['name'] as $key => $val) {
             // File upload path 
             $fileName = basename($_FILES['files']['name'][$key]);
@@ -51,7 +52,9 @@ function create_post()
                 // Upload file to server 
                 if (move_uploaded_file($_FILES["files"]["tmp_name"][$key], $targetFilePath)) {
                     // Image db insert sql 
-                    $insertValuesSQL .= "('" . $user_id . "','" . $_POST['title'] . "','" . $fileName . "', NOW()),";
+                    // $insertValuesSQL .= "('" . $user_id . "','" . $_POST['title'] . "','" . $fileName . "', NOW()),";
+                    $file_names[]=$fileName;
+
                 } else {
                     $errorUpload .= $_FILES['files']['name'][$key] . ' | ';
                 }
@@ -59,12 +62,12 @@ function create_post()
                 $errorUploadType .= $_FILES['files']['name'][$key] . ' | ';
             }
         }
-
-
-        $insertValuesSQL = trim($insertValuesSQL, ',');
-
+        $title=$_POST['title'];
+        $insertValuesSQL = implode(";",$file_names);
+        
+           
         // Insert image file name into database 
-        $insert = mysqli_query($con, "INSERT INTO xb_posts (user_id,title,picture, created_At) VALUES $insertValuesSQL");
+        $insert = mysqli_query($con, "INSERT INTO xb_posts (user_id,title,picture, created_At) VALUES ('$user_id','$title','$insertValuesSQL',NOW())");
     }
 }
 
@@ -75,12 +78,14 @@ function get_posts()
     $query = mysqli_query($con, "SELECT * FROM xb_posts ORDER BY id DESC");
     while ($row = $query->fetch_assoc()) {
         $comments = mysqli_query($con, "SELECT * FROM xb_comments where post_id='".$row['id']."' ORDER BY id DESC");
+        $three_comments = mysqli_query($con, "SELECT * FROM xb_comments where post_id='".$row['id']."' ORDER BY id DESC limit 3");
         $likes = mysqli_query($con, "SELECT * FROM xb_likes where post_id='".$row['id']."'");
         $userQuery = mysqli_query($con, "SELECT first_name, last_name FROM xb_users where id='".$row['user_id']."'");
         $user = mysqli_fetch_assoc($userQuery);
         $row['comments'] = $comments;
         $row['likes'] = $likes->num_rows;
         $row['user'] = $user;
+        $row['first_three_comments'] = $three_comments;
         $posts[] = $row;
     }
    
