@@ -1,11 +1,11 @@
 <?php
 
 if (isset($_POST['create_post'])) {
-    var_dump($_POST['create_post']);
+   
     if ($_POST['create_post'] == 'ok') {
         create_post();
         $_POST['create_post'] = 'no';
-        var_dump($_POST['create_post']);
+       
     }
 }
 
@@ -15,6 +15,9 @@ if (isset($_POST['key'])) {
     }
     if ($_POST['key'] == 'store_comments') {
         store_comments();
+    }
+    if ($_POST['key'] == 'show_comments') {
+        show_comments();
     }
 }
 
@@ -125,8 +128,18 @@ function store_comments()
     $comment = $_POST['comment'];
     $sql="INSERT INTO xb_comments (post_id,user_id,comment,created_at) VALUES ('$post_id','$user_id','$comment',now())";
     mysqli_query($con,$sql);
-    $comments = mysqli_query($con, "SELECT * FROM xb_comments where post_id = $post_id ORDER BY id DESC");
+    show_comments($post_id);
+    
+}
+
+function show_comments($post_id=''){
+    if($post_id==''){
+        $post_id= $_POST['post_id'];
+    }
+    $con = connect_to_maindb();
+    $comments = mysqli_query($con, "SELECT * FROM xb_comments where post_id = '$post_id' ORDER BY id DESC");
     $likes = mysqli_query($con, "SELECT * FROM xb_likes where post_id='".$post_id."'");
+
     $extra = '<div class="flex space-x-4 lg:font-bold">
     <a href="#" class="flex items-center space-x-2" onclick="return false;">
         <div class="p-2 rounded-full  text-black lg:bg-gray-100 dark:bg-gray-600" onclick="like('.$post_id.')">
@@ -146,18 +159,19 @@ function store_comments()
         <span>'.$comments->num_rows.'</span>
         <div> Comment</div>
     </a>
-</div>';
+    </div>';
     $extra2 = '';
     while ($row = $comments->fetch_assoc()) {
-
-      $extra2.=('<div class="border-t py-4 space-y-4 dark:border-gray-600">
+        $userQuery = mysqli_query($con, "SELECT first_name, last_name FROM xb_users where id='".$row['user_id']."'");
+        $user = mysqli_fetch_assoc($userQuery);
+        $extra2.=('<div class="border-t py-4 space-y-4 dark:border-gray-600">
             <div class="flex">
                 <div class="w-10 h-10 rounded-full relative flex-shrink-0">
                     <img src="assets/images/avatars/avatar-1.jpg" alt="" class="absolute h-full rounded-full w-full">
                 </div>
                 <div>
                     <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 relative lg:ml-5 ml-2 lg:mr-12  dark:bg-gray-800 dark:text-gray-100">
-                    <p class="leading-6"><b>Bilal Rasool</b> </p>    
+                    <p class="leading-6"><b>'.$user['first_name'].' '.$user['last_name'].'</b> </p>    
                     <p class="leading-6">'.$row["comment"].'</p>
                         <div class="absolute w-3 h-3 top-3 -left-1 bg-gray-100 transform rotate-45 dark:bg-gray-800"></div>
                     </div>
@@ -167,5 +181,5 @@ function store_comments()
         </div>');
     }
     echo $extra.=$extra2;
-   exit;
+    exit;
 }

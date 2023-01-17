@@ -105,8 +105,8 @@ include_once("./layouts/sidebar/sidebar.php");
                                             <span id="count<?php echo $row['id']; ?>"><?php echo $row['likes'] ?></span>
                                             <div id="like" class="like-btn" data-id="<?php echo $row['id']; ?>">Like</div>
                                         </a>
-                                        <a href="#" class="flex items-center space-x-2">
-                                            <div class="p-2 rounded-full  text-black lg:bg-gray-100 dark:bg-gray-600">
+                                        <a href="#" onclick="return false;" class="flex items-center space-x-2">
+                                            <div onclick="showComments(<?php echo $row['id']; ?>)" class="p-2 rounded-full  text-black lg:bg-gray-100 dark:bg-gray-600">
                                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="22" height="22" class="dark:text-gray-100">
                                                     <path fill-rule="evenodd" d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z" clip-rule="evenodd" />
                                                 </svg>
@@ -114,64 +114,9 @@ include_once("./layouts/sidebar/sidebar.php");
                                             <span><?php echo $row['comments']->num_rows ?></span>
                                             <div> Comment</div>
                                         </a>
-                                        <!-- <a href="#" class="flex items-center space-x-2 flex-1 justify-end">
-                                        <div class="p-2 rounded-full  text-black lg:bg-gray-100 dark:bg-gray-600">
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="22" height="22" class="dark:text-gray-100">
-                                                <path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z" />
-                                            </svg>
-                                        </div>
-                                        <div> Share</div>
-                                    </a> -->
+                                       
                                     </div>
-                                    <!-- <div class="flex items-center space-x-3 pt-2">
-                                    <div class="flex items-center">
-                                        <img src="assets/images/avatars/avatar-1.jpg" alt="" class="w-6 h-6 rounded-full border-2 border-white dark:border-gray-900">
-                                        <img src="assets/images/avatars/avatar-4.jpg" alt="" class="w-6 h-6 rounded-full border-2 border-white dark:border-gray-900 -ml-2">
-                                        <img src="assets/images/avatars/avatar-2.jpg" alt="" class="w-6 h-6 rounded-full border-2 border-white dark:border-gray-900 -ml-2">
-                                    </div>
-                                    <div class="dark:text-gray-100">
-                                        Liked <strong> Johnson</strong> and <strong></strong> Others
-                                    </div>
-                                </div> -->
-
-                                    <?php foreach ($row['comments'] as $comment) { ?>
-                                        <div class="border-t py-4 space-y-4 dark:border-gray-600">
-                                            <div class="flex">
-                                                <div class="w-10 h-10 rounded-full relative flex-shrink-0">
-                                                    <img src="assets/images/avatars/avatar-1.jpg" alt="" class="absolute h-full rounded-full w-full">
-                                                </div>
-                                                <div>
-                                                    <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 relative lg:ml-5 ml-2 lg:mr-12  dark:bg-gray-800 dark:text-gray-100">
-                                                        <p class="leading-6"><b>Bilal Rasool</b> </p>
-                                                        <p class="leading-6"><?php echo $comment['comment']; ?> </p>
-                                                        <div class="absolute w-3 h-3 top-3 -left-1 bg-gray-100 transform rotate-45 dark:bg-gray-800"></div>
-                                                    </div>
-                                                    <!-- <div class="text-sm flex items-center space-x-3 mt-2 ml-5">
-                                                <a href="#" class="text-red-600"> <i class="uil-heart"></i> Love </a>
-                                                <a href="#"> Replay </a>
-                                                <span> 3d </span>
-                                            </div> -->
-                                                </div>
-                                            </div>
-                                            <!-- <div class="flex">
-                                        <div class="w-10 h-10 rounded-full relative flex-shrink-0">
-                                            <img src="assets/images/avatars/avatar-1.jpg" alt="" class="absolute h-full rounded-full w-full">
-                                        </div>
-                                        <div>
-                                            <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 relative lg:ml-5 ml-2 lg:mr-12  dark:bg-gray-800 dark:text-gray-100">
-                                                <p class="leading-6"> sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. David !<i class="uil-grin-tongue-wink-alt"></i> </p>
-                                                <div class="absolute w-3 h-3 top-3 -left-1 bg-gray-100 transform rotate-45 dark:bg-gray-800"></div>
-                                            </div>
-                                            <div class="text-xs flex items-center space-x-3 mt-2 ml-5">
-                                                <a href="#" class="text-red-600"> <i class="uil-heart"></i> Love </a>
-                                                <a href="#"> Replay </a>
-                                                <span> 3d </span>
-                                            </div>
-                                        </div>
-                                    </div> -->
-
-                                        </div>
-                                    <?php } ?>
+                                   
                                 </span>
                                 <!-- <a href="#" class="hover:text-blue-600 hover:underline"> Veiw 8 more Comments </a> -->
 
@@ -901,6 +846,22 @@ include_once("./layouts/sidebar/sidebar.php");
             }
         });
     }
+
+    function showComments(id) {
+
+    $.ajax({
+        url: 'index.php',
+        type: 'post',
+        data: {
+            'post_id': id,
+            'key': 'show_comments'
+        },
+        success: function(res) {
+            console.log(res);
+            document.getElementById("list_of_comments" + id).innerHTML = res;
+        }
+    });
+}
 </script>
 
 
