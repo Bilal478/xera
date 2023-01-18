@@ -87,48 +87,15 @@ include_once("./layouts/sidebar/sidebar.php");
                                     </div>
                                 </div>
                             </div>
-
-
-
-                            
+                            <div uk-lightbox>
                                 <p class="pb-3 pl-5"><?php echo $row['title']; ?></p>
-                                
-                                
-                            </div>
                                 <?php 
-                                foreach($image as $index=>$val){ ?>
-                                <div uk-lightbox>
-                                    <div class="grid grid-cols-2 gap-2 px-5">
-                                        <?php if($index==0){ ?>
-                                        <a href="<?php echo 'upload/'.$val; ?>" class="col-span-2">
-                                            <img src="<?php echo 'upload/'.$val; ?>" alt="" class="rounded-md w-full lg:h-76 object-cover">
-                                        </a>
-                                        <?php } ?>
-                                        <?php if($index==0){ ?>
-                                        <a href="<?php echo 'upload/'.$val; ?>">
-                                            <img src="<?php echo 'upload/'.$val; ?>" alt="" class="rounded-md w-full h-full">
-                                        </a>
-                                        <?php } ?>
-                                        <?php if($index==0){ ?>
-                                        <a href="<?php echo 'upload/'.$val; ?>" class="relative">
-                                            <img src="<?php echo 'upload/'.$val; ?>" alt="" class="rounded-md w-full h-full">
-                                            <div class="absolute bg-gray-900 bg-opacity-30 flex justify-center items-center text-white rounded-md inset-0 text-2xl"> + 15 more </div>
-                                        </a>
-                                        <?php } ?>
-                                    </div>
-                                </div>
-                                
-                                <!-- <a href="<?php echo 'upload/'.$val; ?>">
-
+                                  foreach($image as $val){ ?>
+                                <a href="<?php echo 'upload/'.$val; ?>">
                                     <img src="<?php echo 'upload/'.$val; ?>" alt="" class="max-h-96 w-full object-cover">
-                                    
-                                </a> -->
+                                </a>
                                 <?php } ?>
-                                    
                             </div>
-                        
-
-
                             <div class="p-4 space-y-3">
                                 <span id="list_of_comments<?php echo $row['id']; ?>">
                                     <div class="flex space-x-4 lg:font-bold">
