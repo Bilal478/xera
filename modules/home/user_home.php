@@ -90,6 +90,8 @@ include_once("./layouts/sidebar/sidebar.php");
                             
                             <p class="pb-3 pl-5"><?php echo $row['title']; ?></p>
                             <div uk-lightbox>
+                                <?php
+                                if($row['picture']){ ?>
                                 <div class="grid grid-cols-2 gap-2 px-5">
                                     <?php 
                                    
@@ -139,6 +141,7 @@ include_once("./layouts/sidebar/sidebar.php");
                                             <?php } ?>
                                     <?php } ?>
                                 </div>
+                                <?php } ?>
                             </div>
                               
                             <div class="p-4 space-y-3">
@@ -162,7 +165,25 @@ include_once("./layouts/sidebar/sidebar.php");
                                             <span><?php echo $row['comments']->num_rows ?></span>
                                             <div> Comment</div>
                                         </a>
+                                        <a href="#" class="flex items-center space-x-2 flex-1 justify-end">
+                                        <div class="p-2 rounded-full  text-black lg:bg-gray-100 dark:bg-gray-600">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="22" height="22" class="dark:text-gray-100">
+                                                <path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z" />
+                                            </svg>
+                                        </div>
+                                        <div> Share</div>
+                                    </a>
                                        
+                                    </div>
+                                    <div class="flex items-center space-x-3 pt-2">
+                                      <div class="flex items-center">
+                                        <img src="assets/images/avatars/avatar-1.jpg" alt="" class="w-6 h-6 rounded-full border-2 border-white dark:border-gray-900">
+                                        <img src="assets/images/avatars/avatar-4.jpg" alt="" class="w-6 h-6 rounded-full border-2 border-white dark:border-gray-900 -ml-2">
+                                        <img src="assets/images/avatars/avatar-2.jpg" alt="" class="w-6 h-6 rounded-full border-2 border-white dark:border-gray-900 -ml-2">
+                                      </div>
+                                      <div class="dark:text-gray-100">
+                                        Liked <strong> Johnson</strong> and <strong> 209 Others </strong>
+                                      </div>
                                     </div>
                                     <?php 
                                     
@@ -174,22 +195,27 @@ include_once("./layouts/sidebar/sidebar.php");
                                         <div class="flex">
                                             <div class="w-10 h-10 rounded-full relative flex-shrink-0">
                                                 <img src="assets/images/avatars/avatar-1.jpg" alt="" class="absolute h-full rounded-full w-full">
-                                            </div>
+                                           </div>
                                             <div>
                                                 <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 relative lg:ml-5 ml-2 lg:mr-12  dark:bg-gray-800 dark:text-gray-100">
-                                                <p class="leading-6"><b><?php echo $row['user']['first_name'].' '.$row['user']['last_name'];?></b> </p>    
+                                                <p class="leading-6"><small><b><?php echo $row['user']['first_name'].' '.$row['user']['last_name'];?></b></small> </p>    
                                                 <p class="leading-6"><?php echo $row1['comment'];?></p>
                                                     <div class="absolute w-3 h-3 top-3 -left-1 bg-gray-100 transform rotate-45 dark:bg-gray-800"></div>
+                                                </div>
+                                                <div class="text-sm flex items-center space-x-3 mt-2 ml-5">
+                                                <a href="#" class="text-red-600"> <i class="uil-heart"></i> Love </a>
+                                                <span> 3d </span>
                                                 </div>
                                                 
                                             </div>
                                         </div>
                                     </div>
-
                                     <?php } ?>
+                                <!-- <a href="#" class="hover:text-blue-600 hover:underline">  Veiw 8 more Comments </a> -->
+
                                    
                                 </span>
-                                <!-- <a href="#" class="hover:text-blue-600 hover:underline"> Veiw 8 more Comments </a> -->
+                                <a href="#" class="hover:text-blue-600 hover:underline"> Veiw 8 more Comments </a>
 
                                 <div class="bg-gray-100 rounded-full relative dark:bg-gray-800 border-t">
                                     <input placeholder="Add your Comment.." onKeyPress="saveCommentOnEnter(event,<?php echo $row["id"]; ?>)" id="comment<?php echo $row["id"]; ?>" name="comment" class="bg-transparent max-h-10 shadow-none px-5">
@@ -200,7 +226,7 @@ include_once("./layouts/sidebar/sidebar.php");
                                         <a href="#">
                                             <!-- <ion-icon name="image-outline" class="hover:bg-gray-200 p-1.5 rounded-full"></ion-icon> -->
                                         </a>
-                                        <svg id="comment-btn" onclick="saveComment(<?php echo $row["id"]; ?>)" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
+                                        <svg id="comment-btn" onclick="saveComment(<?php echo $row["id"]; ?>)" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send cursor-pointer" viewBox="0 0 16 16">
                                             <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z" />
                                         </svg>
                                         <a href="#">

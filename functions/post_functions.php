@@ -30,6 +30,7 @@ function create_post()
     $count = mysqli_num_rows($query);
     $row = mysqli_fetch_assoc($query);
     $user_id = $row['user_id'];
+    $title=$_POST['title'];
 
     // File upload configuration 
     $targetDir = "upload/";
@@ -62,11 +63,13 @@ function create_post()
                 $errorUploadType .= $_FILES['files']['name'][$key] . ' | ';
             }
         }
-        $title=$_POST['title'];
         $insertValuesSQL = implode(";",$file_names);
         
            
         // Insert image file name into database 
+        $insert = mysqli_query($con, "INSERT INTO xb_posts (user_id,title,picture, created_At) VALUES ('$user_id','$title','$insertValuesSQL',NOW())");
+    }
+    else{
         $insert = mysqli_query($con, "INSERT INTO xb_posts (user_id,title,picture, created_At) VALUES ('$user_id','$title','$insertValuesSQL',NOW())");
     }
 }
@@ -179,6 +182,10 @@ function show_comments($post_id=''){
                     <p class="leading-6"><b>'.$user['first_name'].' '.$user['last_name'].'</b> </p>    
                     <p class="leading-6">'.$row["comment"].'</p>
                         <div class="absolute w-3 h-3 top-3 -left-1 bg-gray-100 transform rotate-45 dark:bg-gray-800"></div>
+                    </div>
+                    <div class="text-sm flex items-center space-x-3 mt-2 ml-5">
+                     <a href="#" class="text-red-600"> <i class="uil-heart"></i> Love </a>
+                        <span> 3d </span>
                     </div>
                     
                 </div>
