@@ -87,15 +87,60 @@ include_once("./layouts/sidebar/sidebar.php");
                                     </div>
                                 </div>
                             </div>
+                            
+                            <p class="pb-3 pl-5"><?php echo $row['title']; ?></p>
                             <div uk-lightbox>
-                                <p class="pb-3 pl-5"><?php echo $row['title']; ?></p>
-                                <?php 
-                                  foreach($image as $val){ ?>
-                                <a href="<?php echo 'upload/'.$val; ?>">
-                                    <img src="<?php echo 'upload/'.$val; ?>" alt="" class="max-h-96 w-full object-cover">
-                                </a>
-                                <?php } ?>
+                                <div class="grid grid-cols-2 gap-2 px-5">
+                                    <?php 
+                                   
+                                        foreach($image as $index=>$val){ ?>
+                                            <?php if($index==0){ 
+                                                if(count($image) == 2){ ?>
+                                                    <a href="<?php echo 'upload/'.$val; ?>">
+                                                    <img src="<?php echo 'upload/'.$val; ?>" alt="" class="rounded-md w-full h-full">
+                                                    </a>
+                                                    <?php }
+                                                else { ?>
+                                                    <a href="<?php echo 'upload/'.$val; ?>" class="col-span-2">
+                                                        <img src="<?php echo 'upload/'.$val; ?>" alt="" class="rounded-md w-full lg:h-76 object-cover">
+                                                    </a>
+                                            <?php } } ?>
+                                            
+
+
+                                            <?php if($index==1){ 
+                                                if(count($image) == 2){ ?>
+                                                    <a href="<?php echo 'upload/'.$val; ?>" class="relative">
+                                                    <img src="<?php echo 'upload/'.$val; ?>" alt="" class="rounded-md w-full h-full">
+                                                    
+                                                    </a>
+                                                
+                                                <?php }
+                                                else { ?>
+                                                <a href="<?php echo 'upload/'.$val; ?>">
+                                                    <img src="<?php echo 'upload/'.$val; ?>" alt="" class="rounded-md w-full h-full">
+                                                </a>
+                                            <?php } } ?>
+
+
+                                            <?php if($index==2){ ?>
+                                                <a href="<?php echo 'upload/'.$val; ?>" class="relative">
+                                                    <img src="<?php echo 'upload/'.$val; ?>" alt="" class="rounded-md w-full h-full">
+                                                    <?php if(count($image) >3){ ?>
+                                                    <div class="absolute bg-gray-900 bg-opacity-30 flex justify-center items-center text-white rounded-md inset-0 text-2xl"> + <?php echo (count($image) -3); ?> more </div>
+                                                    <?php } ?>
+                                                </a>
+                                            <?php } ?>
+
+                                            <?php if($index>2){ ?>
+                                                <a href="<?php echo 'upload/'.$val; ?>" class="relative d-none">
+                                                    <img src="<?php echo 'upload/'.$val; ?>" alt="" class="rounded-md w-full h-full">
+                                                </a>
+                                            <?php } ?>
+                                    <?php } ?>
+                                </div>
                             </div>
+                              
                             <div class="p-4 space-y-3">
                                 <span id="list_of_comments<?php echo $row['id']; ?>">
                                     <div class="flex space-x-4 lg:font-bold">
@@ -126,23 +171,22 @@ include_once("./layouts/sidebar/sidebar.php");
                                   
                                     <div class="border-t py-4 space-y-4 dark:border-gray-600">
                                         
-            <div class="flex">
-                <div class="w-10 h-10 rounded-full relative flex-shrink-0">
-                    <img src="assets/images/avatars/avatar-1.jpg" alt="" class="absolute h-full rounded-full w-full">
-                </div>
-                <div>
-                    <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 relative lg:ml-5 ml-2 lg:mr-12  dark:bg-gray-800 dark:text-gray-100">
-                    <p class="leading-6"><b><?php echo $row['user']['first_name'].' '.$row['user']['last_name'];?></b> </p>    
-                    <p class="leading-6"><?php echo $row1['comment'];?></p>
-                        <div class="absolute w-3 h-3 top-3 -left-1 bg-gray-100 transform rotate-45 dark:bg-gray-800"></div>
-                    </div>
-                    
-                </div>
-            </div>
-        </div>
-        <?php
-    }
-                                    ?>
+                                        <div class="flex">
+                                            <div class="w-10 h-10 rounded-full relative flex-shrink-0">
+                                                <img src="assets/images/avatars/avatar-1.jpg" alt="" class="absolute h-full rounded-full w-full">
+                                            </div>
+                                            <div>
+                                                <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 relative lg:ml-5 ml-2 lg:mr-12  dark:bg-gray-800 dark:text-gray-100">
+                                                <p class="leading-6"><b><?php echo $row['user']['first_name'].' '.$row['user']['last_name'];?></b> </p>    
+                                                <p class="leading-6"><?php echo $row1['comment'];?></p>
+                                                    <div class="absolute w-3 h-3 top-3 -left-1 bg-gray-100 transform rotate-45 dark:bg-gray-800"></div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <?php } ?>
                                    
                                 </span>
                                 <!-- <a href="#" class="hover:text-blue-600 hover:underline"> Veiw 8 more Comments </a> -->
